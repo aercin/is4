@@ -1,0 +1,7 @@
+Protected resource; kendisinde korumak istediği epler için erişim yetki tanımı yapan ve bu yetki tanımlarını, is4 ile paylaşıp 
+Clientlara bu yetki kümesinden ilişki kurduran tarafdır. Yetki tanımını, kendini korumak için tanımlayan ve is4 ile paylaşan protected resource 
+zaten bu koruma kodunu, kendi içerisinde yazması doğru olacaktır. (Ben bu örnekte resource api da policy based authorization ile ilerledim.)
+
+Oauth, client uygulamanın protected resource'a erişimini yöneten protokol. Ama aslında yaptığı 
+protected resource'a client veya user'ın ilgili apiye ne ölçüde erişim yetkisi olduğunu söylemek ve api tarafının buna bağlı karar almasına yardımcı olmak.
+Api tarafı ise ister önlemi alır ister almaz :)
