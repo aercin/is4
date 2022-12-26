@@ -1,0 +1,231 @@
+{
+	"info": {
+		"_postman_id": "2e3c0aa3-00f4-4326-929f-8cadf21d75b4",
+		"name": "Central Authentication - Authorization Via IS4",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Interactive User Client - Resource erişimi için IS4 üzerinden token talebi",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "interactive-client",
+							"type": "default"
+						},
+						{
+							"key": "client_secret",
+							"value": "interactive",
+							"type": "default"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "default"
+						},
+						{
+							"key": "username",
+							"value": "aercin",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "ercin1",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5080/connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5080",
+					"path": [
+						"connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Interactive Client - IS4 üzerinden refresh token talebi",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "interactive-client",
+							"type": "default"
+						},
+						{
+							"key": "client_secret",
+							"value": "interactive",
+							"type": "default"
+						},
+						{
+							"key": "grant_type",
+							"value": "refresh_token",
+							"type": "default"
+						},
+						{
+							"key": "refresh_token",
+							"value": "F625769A4740E067B665530C8A8ABB910813F81DBAAEB870D613C6297930D87F",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5080/connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5080",
+					"path": [
+						"connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Resource - 5 Günlük Hava Tahmini EP",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjYzOTcwQUI3NzU3REI0MzAzRTZBOTFCOTA0RTBFMDFFIiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE2NzIwNjQzNDgsImV4cCI6MTY3MjA2Nzk0OCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDgwIiwiYXVkIjoicmVzb3VyY2UtYXBpIiwiY2xpZW50X2lkIjoibTJtLWZvcmVjYXN0LTUtZGF5cyIsImp0aSI6IkFFRjA0M0FGRjQ3OTJGQjYxMDYxMTA3NkIzQUY1NDJBIiwiaWF0IjoxNjcyMDY0MzQ4LCJzY29wZSI6WyJzZWN1cmUtYXBpLWZvcmVjYXN0LWZvci1maXZlLWRheXMiXX0.WMEiNnBilOblE1mMIvOSuHYxIe2OhtccDI-1l_h8muUZJrA7nKIoBozqPW0xgK05EPQf7XqA2Or0NMHgGDCf9USBW7iMNZzHdC0MlfchcdtnVCporPri2XHTp2gAsQK6QM725VdWRPnkASGCgwdSTf2NDOxbPxfsJsvBOjqxdaNmvA4BMhmY84PDkcG2UmhAVls__oeaMPf-D6cQB-ruek2v2e4XC2viJu_JQJ4QmlA4aEIAfsgQi80KjprbcwpTdhEG7yFqCsqlfcjHJSoTqebq2qmj36ESN-4o4sduhAB13EhhMLOYFuUsP80eV9juMK8t3kG8_RTVpI4Cgye9fg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5205/for5days",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5205",
+					"path": [
+						"for5days"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Resource - 10 Günlük Hava Tahmini EP",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjYzOTcwQUI3NzU3REI0MzAzRTZBOTFCOTA0RTBFMDFFIiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE2NzIwNjQxMjIsImV4cCI6MTY3MjA2NDE1MiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDgwIiwiYXVkIjpbImlkZW50aXR5LXNlcnZlci1hcGkiLCJyZXNvdXJjZS1hcGkiXSwiY2xpZW50X2lkIjoiaW50ZXJhY3RpdmUtY2xpZW50Iiwic3ViIjoiMSIsImF1dGhfdGltZSI6MTY3MjA2NDEyMiwiaWRwIjoibG9jYWwiLCJyb2xlIjoic2VjdXJlLWFwaS1mb3JlY2FzdC1mb3ItdGVuLWRheXMiLCJqdGkiOiI3RDhFQUREOUFBQjZGOTAwQkQ4OTM4QkE2N0Y1NjczMiIsImlhdCI6MTY3MjA2NDEyMiwic2NvcGUiOlsiaWRlbnRpdHlTZXJ2ZXJBcGkiLCJvcGVuaWQiLCJzZWN1cmUtYXBpLWZvci1vbmx5LWF1dGgiLCJvZmZsaW5lX2FjY2VzcyJdLCJhbXIiOlsiY3VzdG9tIl19.T7CbYoJdycHHSxNAI1nHTKQ7QxXAuGipkcmLUqZk7FkyPunqejM_ChT-E3HpfjR90Ra6FtjW-dKAVxWC-UFnrySBHcZf0Yl9MMbpVy07MMyeblR789ZZk44YYMdmhfjekWcx0zrhsl4bWIfeRHQGhG53Lb2GITmra16QplUgvmc_2sH6ppxgs5VcVAFe5ks6Iidl-OWGmmi79C_ylNBGBPnnSehukwBZzVQ9kqdd8x42hYsN4zA7wiCY8XHNpLFshhY_ROBHdO3tIl4xaQl-T9Zumrg6VoAe-G0BQZLqZAoLqvypHtW4o0K6BZipptqEmbUKgOWmD4V7vSpYWWfpAw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5205/for10days",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5205",
+					"path": [
+						"for10days"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Resource - Anlık Hava Tahmini EP",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjYzOTcwQUI3NzU3REI0MzAzRTZBOTFCOTA0RTBFMDFFIiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE2NzIwNjQyNTQsImV4cCI6MTY3MjA2NDI4NCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDgwIiwiYXVkIjpbImlkZW50aXR5LXNlcnZlci1hcGkiLCJyZXNvdXJjZS1hcGkiXSwiY2xpZW50X2lkIjoiaW50ZXJhY3RpdmUtY2xpZW50Iiwic3ViIjoiMSIsImF1dGhfdGltZSI6MTY3MjA2NDI1NCwiaWRwIjoibG9jYWwiLCJyb2xlIjoic2VjdXJlLWFwaS1pbnN0YW50LWZvcmVjYXN0IiwianRpIjoiNEE2MUM4NzQ1QTU2OTNBODgzOEYzOEVBMjY5NTZBRUYiLCJpYXQiOjE2NzIwNjQyNTQsInNjb3BlIjpbImlkZW50aXR5U2VydmVyQXBpIiwib3BlbmlkIiwic2VjdXJlLWFwaS1mb3Itb25seS1hdXRoIiwib2ZmbGluZV9hY2Nlc3MiXSwiYW1yIjpbImN1c3RvbSJdfQ.BCKMoP6SzBMAjsv1imvEkemZbLarG6L_Z70KsIfsmUgpYOLQm3KiSD0bCADaZ-fKJrsWH8C8-7biQLkwKUKIR8gJqeUffLFiERHksDBuBbv_mIP93EN022zYJLbNMfar_gbC6WgACIuGEVAwZJI8cED4xJjGxWR8YorasUvslMmTI3Il0FNtZgqDpT3kLhm0lLfM1xiYvVs52jcoQwsRyW6zhhjO3mL7JjsFN7eX9LTjqMEJvqUw_x9uFrvBM8RTfEATi9f27_RMdWyiUCp8JlwOg9c1Za3dKVVOKlfpzU42EQScYyjQ_KFezzIyEkPb11SCSo_obcd3KkXN_4hWMw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5205/instant",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5205",
+					"path": [
+						"instant"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "M2M Client - Resource erişimi için IS4'den token talebi",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "m2m-forecast-5-days",
+							"type": "default"
+						},
+						{
+							"key": "client_secret",
+							"value": "m2m5days",
+							"type": "default"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5080/connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5080",
+					"path": [
+						"connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
