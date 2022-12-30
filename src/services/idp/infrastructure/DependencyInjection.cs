@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Cryptography;
 
 namespace infrastructure
 {
@@ -18,7 +20,27 @@ namespace infrastructure
         {
             var migrationAssembly = typeof(is4Config).Assembly.GetName().Name;
 
-            services.AddIdentityServer()
+            services.AddSingleton<RsaSecurityKey>(provider =>
+            { 
+                RSA rsa = RSA.Create();
+                rsa.ImportRSAPublicKey(
+                    source: Convert.FromBase64String(config.GetValue<string>("IdentityServer:Asymmetric:PublicKey")),
+                    bytesRead: out int _
+                );
+                rsa.ImportRSAPrivateKey(
+                  source: Convert.FromBase64String(config.GetValue<string>("IdentityServer:Asymmetric:PrivateKey")),
+                  bytesRead: out int _
+                );
+
+                return new RsaSecurityKey(rsa);
+            }); 
+            SecurityKey rsa = services.BuildServiceProvider().GetRequiredService<RsaSecurityKey>(); 
+            var signingCredential = new SigningCredentials(rsa, SecurityAlgorithms.RsaSha256);
+
+            services.AddIdentityServer(opt =>
+                     {
+                         opt.IssuerUri = config.GetValue<string>("IdentityServer:BaseUrl");
+                     })
                      //.AddInMemoryIdentityResources(is4Config.GetIdentityResources())
                      //.AddInMemoryApiScopes(is4Config.GetApiScopes())
                      //.AddInMemoryApiResources(is4Config.GetApiResources())
@@ -35,7 +57,8 @@ namespace infrastructure
                     })
                     .AddResourceOwnerValidator<UserValidator>()
                     .AddProfileService<UserProfileService>()
-                    .AddDeveloperSigningCredential();
+                    .AddSigningCredential(signingCredential); 
+                     //.AddDeveloperSigningCredential();
 
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                     .AddIdentityServerAuthentication(options =>

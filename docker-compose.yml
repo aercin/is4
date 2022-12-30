@@ -1,0 +1,59 @@
+version: '3.4'
+
+services:
+  authorizationApi:
+    image: ${DOCKER_REGISTRY-}is4api
+    container_name: is4Api
+    build:
+      context: .
+      dockerfile: src/services/idp/api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5080
+      - ConnectionStrings__Idp=host=postgres;port=5432;database=idpDb;username=admin;password=sa1234
+      - IdentityServer__BaseUrl=http://is4Api:5080
+    ports:
+      - 5080:5080
+    depends_on:
+      - postgres  
+    networks:
+      - dev
+
+  resourceApi:
+    image: ${DOCKER_REGISTRY-}resourceapi
+    container_name: resourceApi
+    build:
+      context: .
+      dockerfile: src/services/resource/api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5205
+      - IdentityServer__BaseUrl=http://is4Api:5080
+    ports:
+      - 5205:5205
+    depends_on:
+      - authorizationApi  
+    networks:
+      - dev
+
+  postgres:
+    image: postgres:14.2-alpine3.15
+    container_name: postgres
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+      - ./docker-postgresql-multiple-databases:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_MULTIPLE_DATABASES: idpDb
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: sa1234
+    ports:
+      - 5432:5432
+    networks:
+      - dev
+
+networks:
+  dev:
+    driver: bridge 
+
+volumes:
+  db_volume:

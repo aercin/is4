@@ -19,6 +19,8 @@ builder.Services.AddAuthentication(IdentityServerAuthenticationDefaults.Authenti
                     options.RequireHttpsMetadata = false;
                     options.SupportedTokens = SupportedTokens.Jwt;
                 });
+
+
 builder.Services.AddAuthorization(option =>
 {
     option.AddPolicy("WeatherForecastFor5DaysPolicy", policy => policy.Requirements.Add(new WeatherForecastFor5DaysPolicyRequirement()));
