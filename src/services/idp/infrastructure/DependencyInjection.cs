@@ -6,36 +6,20 @@ using IdentityServer4.EntityFramework.Mappers;
 using infrastructure.Persistence;
 using infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using System.Security.Cryptography;
+using Microsoft.Extensions.Hosting;
+using System.Security.Cryptography.X509Certificates;
 
 namespace infrastructure
 {
     public static class DependencyInjection
     {
-        public static void AddInfrastructure(this IServiceCollection services, IConfiguration config)
+        public static void AddInfrastructure(this IServiceCollection services, IConfiguration config, IWebHostEnvironment env)
         {
             var migrationAssembly = typeof(is4Config).Assembly.GetName().Name;
-
-            services.AddSingleton<RsaSecurityKey>(provider =>
-            { 
-                RSA rsa = RSA.Create();
-                rsa.ImportRSAPublicKey(
-                    source: Convert.FromBase64String(config.GetValue<string>("IdentityServer:Asymmetric:PublicKey")),
-                    bytesRead: out int _
-                );
-                rsa.ImportRSAPrivateKey(
-                  source: Convert.FromBase64String(config.GetValue<string>("IdentityServer:Asymmetric:PrivateKey")),
-                  bytesRead: out int _
-                );
-
-                return new RsaSecurityKey(rsa);
-            }); 
-            SecurityKey rsa = services.BuildServiceProvider().GetRequiredService<RsaSecurityKey>(); 
-            var signingCredential = new SigningCredentials(rsa, SecurityAlgorithms.RsaSha256);
 
             services.AddIdentityServer(opt =>
                      {
@@ -57,8 +41,7 @@ namespace infrastructure
                     })
                     .AddResourceOwnerValidator<UserValidator>()
                     .AddProfileService<UserProfileService>()
-                    .AddSigningCredential(signingCredential); 
-                     //.AddDeveloperSigningCredential();
+                    .AddSigningCredential(env); 
 
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                     .AddIdentityServerAuthentication(options =>
@@ -137,6 +120,18 @@ namespace infrastructure
             webApp.UseAuthentication();
             webApp.UseAuthorization();
             webApp.UseIdentityServer();
+        }
+
+        private static void AddSigningCredential(this IIdentityServerBuilder builder, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                builder.AddDeveloperSigningCredential();
+            }
+            else
+            {
+                builder.AddSigningCredential(new X509Certificate2("is4cert.pfx", "1234"));
+            }
         }
     }
 }

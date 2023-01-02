@@ -8,10 +8,8 @@ services:
       context: .
       dockerfile: src/services/idp/api/Dockerfile
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:5080
-      - ConnectionStrings__Idp=host=postgres;port=5432;database=idpDb;username=admin;password=sa1234
-      - IdentityServer__BaseUrl=http://is4Api:5080
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5080 
     ports:
       - 5080:5080
     depends_on:
@@ -26,9 +24,8 @@ services:
       context: .
       dockerfile: src/services/resource/api/Dockerfile
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:5205
-      - IdentityServer__BaseUrl=http://is4Api:5080
     ports:
       - 5205:5205
     depends_on:

@@ -43,9 +43,9 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddInfrastructure(builder.Configuration, builder.Environment);
 builder.Services.AddApplication();
- 
+
 
 var app = builder.Build();
 

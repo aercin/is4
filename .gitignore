@@ -225,6 +225,7 @@ ClientBin/
 *.dbmdl
 *.dbproj.schemaview
 *.pfx
+!is4cert.pfx
 *.publishsettings
 node_modules/
 bower_components/
