@@ -1,4 +1,5 @@
-﻿using application;
+﻿using application.Features.Commands;
+using application.Features.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,7 @@ namespace api.Controllers
         [Route("add/permission")]
         [HttpPost]
         public async Task<IActionResult> AddPermission(AddPermission.Command request)
-        { 
+        {
             return Ok(await this._mediator.Send(request));
         }
 
@@ -54,6 +55,14 @@ namespace api.Controllers
         [Route("password/renew")]
         [HttpPost]
         public async Task<IActionResult> PasswordRenew(PasswordRenew.Command request)
+        {
+            return Ok(await this._mediator.Send(request));
+        }
+
+
+        [Route("users")]
+        [HttpGet]
+        public async Task<IActionResult> GetUsers([FromQuery]GetUsers.Query request)
         {
             return Ok(await this._mediator.Send(request));
         }

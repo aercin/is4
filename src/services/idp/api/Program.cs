@@ -1,9 +1,16 @@
+using api.Middlewares;
 using application;
 using infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
+{
+    loggerConfiguration.ReadFrom.Configuration(hostingContext.Configuration);
+});
 
 // Add services to the container.
 builder.Services.Configure<ApiBehaviorOptions>(options =>
@@ -46,18 +53,23 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddInfrastructure(builder.Configuration, builder.Environment);
 builder.Services.AddApplication();
 
+builder.Services.AddCors(options =>
+     options.AddDefaultPolicy(builder =>
+     builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseCors();
+
+app.UseMiddleware<CorrelationMiddleware>();
+
+app.UseSwagger();
+
+app.UseSwaggerUI();
 
 app.MapControllers();
 
 app.AddInfrastructuralPipelines();
 
 app.Run();
+

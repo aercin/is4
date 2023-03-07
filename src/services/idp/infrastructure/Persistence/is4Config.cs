@@ -22,7 +22,8 @@ namespace infrastructure.Persistence
                 new ApiScope("secure-api-forecast-for-ten-days","Grant for accessing forecast for ten days ep of Resource Api"),
                 new ApiScope("secure-api-instant-forecast","Grant for accessing instant forecast ep of Resource Api"),
                 new ApiScope("secure-api-full-access","Grant for accessing any ep of Resource Api"),
-                new ApiScope("identityServerApi", "Grant for accessing Identity Server Api")
+                new ApiScope("identityServerApi", "Grant for accessing Identity Server Api"),
+                new ApiScope("legacy-resource-api-full-access","Grant for accessing Legacy Resource Api")
             };
         }
 
@@ -43,6 +44,11 @@ namespace infrastructure.Persistence
                 {
                     Name="identity-server-api",
                     Scopes=new List<string>{ "identityServerApi" }
+                },
+                new ApiResource
+                {
+                    Name="legacy-resource-api",
+                    Scopes=new List<string>{ "legacy-resource-api-full-access"}
                 }
             };
         }
@@ -89,9 +95,11 @@ namespace infrastructure.Persistence
                     ClientName = "Interactive Console Client",
                     ClientSecrets = new List<Secret> { new Secret("interactive".Sha256()) },
                     AllowedGrantTypes =  GrantTypes.ResourceOwnerPasswordAndClientCredentials,
-                    AllowedScopes = new List<string> { "identityServerApi", "openid", "secure-api-for-only-auth" },
-                    AccessTokenLifetime = 30,
-                    AllowOfflineAccess = true
+                    AllowedScopes = new List<string> { "identityServerApi", "openid", "secure-api-for-only-auth", "legacy-resource-api-full-access" },
+                    AccessTokenLifetime = 3600,//1sa
+                    AllowOfflineAccess = true,//refresh token akışı bu client için kullanılacak.
+                    RefreshTokenUsage = TokenUsage.ReUse // refresh token, her access token talebinde değişmesin.
+                    //Refresh token expiration için default ayarlar ile ilerliyoruz. Absolute expiration yani. varsayılan değeri 30 gün   
                 }
             };
         }

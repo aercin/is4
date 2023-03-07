@@ -5,6 +5,7 @@ namespace domain.Entities
     public class User : IAggregateRoot
     {
         public int Id { get; private set; }
+        public string ClientId { get; private set; }
         public string FirstName { get; private set; }
         public string FamilyName { get; private set; }
         public string Email { get; private set; }
@@ -20,14 +21,15 @@ namespace domain.Entities
             IsActive = false;
         }
 
-        private User(string eMail) : this()
+        private User(string eMail, string clientId) : this()
         {
             Email = eMail;
+            ClientId = clientId;
         }
 
-        public static User AddUser(string eMail)
+        public static User AddUser(string eMail, string clientId)
         {
-            return new User(eMail);
+            return new User(eMail, clientId);
         }
 
         public void ModifyUser(string firstName, string familyName, string userName, string password)
@@ -38,7 +40,7 @@ namespace domain.Entities
             this.Password = password;
             this.IsActive = true;
         }
-         
+
         public void AddUserPermission(int permissionId)
         {
             Permissions.Add(UserPermission.AddUserPermission(permissionId));

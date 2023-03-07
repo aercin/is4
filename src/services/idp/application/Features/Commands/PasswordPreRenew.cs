@@ -1,21 +1,23 @@
-﻿using domain.Abstractions;
+﻿using application.Common;
+using domain.Abstractions;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 
-namespace application
+namespace application.Features.Commands
 {
     public static class PasswordPreRenew
     {
         #region Command
-        public class Command : IRequest<Response>
-        { 
+        public class Command : IRequest<Result>
+        {
             public string Email { get; set; }
         }
 
         #endregion
 
         #region Command Handler
-        public class CommandHandler : IRequestHandler<Command, Response>
+        public class CommandHandler : IRequestHandler<Command, Result>
         {
             private readonly IUnitOfWork _uow;
             private readonly IClientRepository _clientRepository;
@@ -27,7 +29,7 @@ namespace application
                 this._httpContextAccessor = httpContextAccessor;
             }
 
-            public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
             {
                 var existedUser = this._uow.UserRepo.Find(x => x.Email == request.Email).Single();
 
@@ -37,16 +39,20 @@ namespace application
                 var clientId = this._httpContextAccessor.HttpContext.User.Claims.Single(x => x.Type == "client_id").Value;
                 var clientRedirectUrl = this._clientRepository.GetClientRedirectUrl(clientId, "password");
 
-                return new Response { isSuccess = true };
+                return Result.Success();
             }
         }
         #endregion
 
-        #region Response
-        public class Response
+        #region Data Validation
+        public class PasswordPreRenewCommand : AbstractValidator<Command>
         {
-            public bool isSuccess { get; set; }
+            public PasswordPreRenewCommand()
+            {
+                RuleFor(c => c.Email).NotEmpty().WithMessage("Email alanı boş olamaz")
+                                     .EmailAddress().WithMessage("Email adres formatı uygun değildir");
+            }
         }
-        #endregion
+        #endregion 
     }
 }

@@ -1,0 +1,106 @@
+2023-03-07 22:53:55 [[INF] [IdentityServer4.Startup] Starting IdentityServer4 version 4.1.2+997a6cdd643e46cd5762b710c4ddc43574cbec2e
+
+
+2023-03-07 22:53:55 [[INF] [IdentityServer4.Startup] Using the default authentication scheme Bearer for IdentityServer
+
+
+2023-03-07 22:53:55 [[INF] [IdentityServer4.Startup] Authentication scheme Bearer is configured for IdentityServer, but it is not a scheme that supports signin (like cookies). If you support interactive logins via the browser, then a cookie-based scheme should be used.
+
+
+2023-03-07 22:54:36 [[INF] [IdentityServer4.Hosting.IdentityServerMiddleware] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+
+
+2023-03-07 22:54:37 [[INF] [IdentityServer4.Hosting.IdentityServerMiddleware] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.DiscoveryKeyEndpoint for /.well-known/openid-configuration/jwks
+
+
+2023-03-07 22:54:40 [[INF] [application.Features.Commands.AddPermission.Command] TrackId: 86235518-c8cc-4c06-b0bc-6addf71bb73e Request: {"Scope":"","Description":""}
+
+
+2023-03-07 22:54:42 [[ERR] [application.Features.Commands.AddPermission.Command] TrackId:86235518-c8cc-4c06-b0bc-6addf71bb73e Yanlış veya eksik bilgi gönderimi söz konusudur.
+FluentValidation.ValidationException: Scope alanı boş olamaz
+Description alanı boş olamaz
+   at application.Features.Behaviours.ValidationBehaviour`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\aercin\Desktop\GithubRepos\is4\src\services\idp\application\Features\Behaviours\ValidationBehaviour.cs:line 29
+   at application.Features.Behaviours.UnhandledExceptionBehaviour`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\aercin\Desktop\GithubRepos\is4\src\services\idp\application\Features\Behaviours\UnhandledExceptionBehaviour.cs:line 25
+
+
+2023-03-07 22:54:43 [[INF] [application.Features.Commands.AddPermission.Command] TrackId: 86235518-c8cc-4c06-b0bc-6addf71bb73e Response: {"IsSuccess":false,"Errors":["Yanlış veya eksik bilgi gönderimi söz konusudur."]}
+
+
+2023-03-07 22:56:43 [[INF] [application.Features.Commands.AddPermission.Command] TrackId: e44bd098-0006-4731-8b15-595168a52eb0 Request: {"Scope":"create-user-grant","Description":"Kullanıcı Kaydetme Yetkisi"}
+
+
+2023-03-07 22:56:48 [[INF] [application.Features.Commands.AddPermission.Command] TrackId: e44bd098-0006-4731-8b15-595168a52eb0 Response: {"IsSuccess":true,"Errors":[]}
+
+
+2023-03-07 22:57:12 [[INF] [application.Features.Commands.UserPreRegistration.Command] TrackId: e0248d89-233e-4cfa-8073-3f930f75a5ce Request: {"Email":"string"}
+
+
+2023-03-07 22:57:17 [[ERR] [application.Features.Commands.UserPreRegistration.Command] TrackId:e0248d89-233e-4cfa-8073-3f930f75a5ce Yanlış veya eksik bilgi gönderimi söz konusudur.
+FluentValidation.ValidationException: Email adres formatı uygun değildir
+   at application.Features.Behaviours.ValidationBehaviour`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\aercin\Desktop\GithubRepos\is4\src\services\idp\application\Features\Behaviours\ValidationBehaviour.cs:line 29
+   at application.Features.Behaviours.UnhandledExceptionBehaviour`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\Users\aercin\Desktop\GithubRepos\is4\src\services\idp\application\Features\Behaviours\UnhandledExceptionBehaviour.cs:line 25
+
+
+2023-03-07 22:57:18 [[INF] [application.Features.Commands.UserPreRegistration.Command] TrackId: e0248d89-233e-4cfa-8073-3f930f75a5ce Response: {"IsSuccess":false,"Errors":["Yanlış veya eksik bilgi gönderimi söz konusudur."]}
+
+
+2023-03-07 22:57:59 [[INF] [application.Features.Commands.UserPreRegistration.Command] TrackId: 2dbf3791-d548-4b77-8bb8-aba2b32b3128 Request: {"Email":"aercin@innova.com.tr"}
+
+
+2023-03-07 22:58:08 [[INF] [application.Features.Commands.UserPreRegistration.Command] TrackId: 2dbf3791-d548-4b77-8bb8-aba2b32b3128 Response: {"IsSuccess":true,"Errors":[]}
+
+
+2023-03-07 22:59:02 [[INF] [application.Features.Commands.UserRegistration.Command] TrackId: 9d919eff-201a-4bfb-9b63-5674db064b0d Request: {"UserId":1,"FirstName":"Alperen","FamilyName":"Erçin","UserName":"aercin","Password":"12345"}
+
+
+2023-03-07 22:59:06 [[INF] [application.Features.Commands.UserRegistration.Command] TrackId: 9d919eff-201a-4bfb-9b63-5674db064b0d Response: {"IsSuccess":true,"Errors":[]}
+
+
+2023-03-07 23:01:35 [[INF] [IdentityServer4.Startup] Starting IdentityServer4 version 4.1.2+997a6cdd643e46cd5762b710c4ddc43574cbec2e
+
+
+2023-03-07 23:01:35 [[INF] [IdentityServer4.Startup] Using the default authentication scheme Bearer for IdentityServer
+
+
+2023-03-07 23:01:35 [[INF] [IdentityServer4.Startup] Authentication scheme Bearer is configured for IdentityServer, but it is not a scheme that supports signin (like cookies). If you support interactive logins via the browser, then a cookie-based scheme should be used.
+
+
+2023-03-07 23:02:42 [[INF] [IdentityServer4.Startup] Starting IdentityServer4 version 4.1.2+997a6cdd643e46cd5762b710c4ddc43574cbec2e
+
+
+2023-03-07 23:02:42 [[INF] [IdentityServer4.Startup] Using the default authentication scheme Bearer for IdentityServer
+
+
+2023-03-07 23:02:42 [[INF] [IdentityServer4.Startup] Authentication scheme Bearer is configured for IdentityServer, but it is not a scheme that supports signin (like cookies). If you support interactive logins via the browser, then a cookie-based scheme should be used.
+
+
+2023-03-07 23:02:51 [[INF] [IdentityServer4.AccessTokenValidation.IdentityServerAuthenticationHandler] AuthenticationScheme: Bearer was challenged.
+
+
+2023-03-07 23:03:05 [[INF] [IdentityServer4.Hosting.IdentityServerMiddleware] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+
+
+2023-03-07 23:03:07 [[INF] [IdentityServer4.Hosting.IdentityServerMiddleware] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.DiscoveryKeyEndpoint for /.well-known/openid-configuration/jwks
+
+
+2023-03-07 23:03:11 [[INF] [application.Features.Queries.GetUsers.Query] TrackId: 130a6bd6-3e22-43c9-a7c7-77f4c323d8fc Request: {"UserName":null,"PageNumber":1,"PageSize":10}
+
+
+2023-03-07 23:03:28 [[INF] [application.Features.Queries.GetUsers.Query] TrackId: 130a6bd6-3e22-43c9-a7c7-77f4c323d8fc Response: {"Items":[{"Id":1,"FirstName":"Alperen","FamilyName":"Erçin","Email":"aercin@innova.com.tr","UserName":"aercin","Password":"12345","IsActive":true}],"PageIndex":1,"TotalPages":1,"TotalCount":1,"HasPreviousPage":false,"HasNextPage":false,"IsSuccess":true,"Errors":[]}
+
+
+2023-03-07 23:04:37 [[INF] [IdentityServer4.Startup] Starting IdentityServer4 version 4.1.2+997a6cdd643e46cd5762b710c4ddc43574cbec2e
+
+
+2023-03-07 23:04:37 [[INF] [IdentityServer4.Startup] Using the default authentication scheme Bearer for IdentityServer
+
+
+2023-03-07 23:04:37 [[INF] [IdentityServer4.Startup] Authentication scheme Bearer is configured for IdentityServer, but it is not a scheme that supports signin (like cookies). If you support interactive logins via the browser, then a cookie-based scheme should be used.
+
+
+2023-03-07 23:05:46 [[INF] [IdentityServer4.Hosting.IdentityServerMiddleware] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.TokenEndpoint for /connect/token
+
+
+2023-03-07 23:05:48 [[INF] [IdentityServer4.Validation.TokenRequestValidator] Token request validation success, {"ClientId":"interactive-client","ClientName":"Interactive Console Client","GrantType":"client_credentials","Scopes":"legacy-resource-api-full-access","AuthorizationCode":"********","RefreshToken":"********","UserName":null,"AuthenticationContextReferenceClasses":null,"Tenant":null,"IdP":null,"Raw":{"client_id":"interactive-client","client_secret":"***REDACTED***","grant_type":"client_credentials","scope":"legacy-resource-api-full-access"},"$type":"TokenRequestValidationLog"}
+
+

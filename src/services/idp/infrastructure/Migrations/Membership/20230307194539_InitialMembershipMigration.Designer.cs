@@ -12,7 +12,7 @@ using infrastructure.Persistence;
 namespace infrastructure.Migrations.Membership
 {
     [DbContext(typeof(MembershipDbContext))]
-    [Migration("20221224205214_InitialMembershipMigration")]
+    [Migration("20230307194539_InitialMembershipMigration")]
     partial class InitialMembershipMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,6 +52,10 @@ namespace infrastructure.Migrations.Membership
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClientId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .IsRequired()

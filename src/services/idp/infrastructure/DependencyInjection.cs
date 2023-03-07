@@ -1,4 +1,5 @@
-﻿using core_infrastructure;
+﻿using application.Abstractions;
+using core_infrastructure;
 using domain.Abstractions;
 using IdentityServer4.AccessTokenValidation;
 using IdentityServer4.EntityFramework.DbContexts;
@@ -38,6 +39,8 @@ namespace infrastructure
                     {
                         opt.ConfigureDbContext = o => o.UseNpgsql(config.GetConnectionString("Idp"),
                              x => x.MigrationsAssembly(migrationAssembly));
+
+                        opt.EnableTokenCleanup = true;
                     })
                     .AddResourceOwnerValidator<UserValidator>()
                     .AddProfileService<UserProfileService>()
@@ -57,6 +60,8 @@ namespace infrastructure
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPermissionRepository, PermissionRepository>();
+            services.AddScoped<ICorrelationService, CorrelationService>();
+            services.AddScoped<IPersistentGrantRepository, PersistedGrantRepository>();
 
             services.AddCoreInfrastructure<MembershipDbContext>(options =>
             {
@@ -130,7 +135,7 @@ namespace infrastructure
             }
             else
             {
-                builder.AddSigningCredential(new X509Certificate2("is4cert.pfx", "1234"));
+                builder.AddSigningCredential(new X509Certificate2(Path.Combine(AppContext.BaseDirectory, "is4cert.pfx"), "1234"));
             }
         }
     }

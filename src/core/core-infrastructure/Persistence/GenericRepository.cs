@@ -17,12 +17,12 @@ namespace core_infrastructure.persistence
             return this._dbContext.Set<T>().Find(id);
         }
 
-        public IEnumerable<T> GetAll()
+        public IQueryable<T> GetAll()
         {
-            return this._dbContext.Set<T>().ToList();
+            return this._dbContext.Set<T>();
         }
 
-        public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
+        public IQueryable<T> Find(Expression<Func<T, bool>> expression)
         {
             return this._dbContext.Set<T>().Where(expression);
         }
