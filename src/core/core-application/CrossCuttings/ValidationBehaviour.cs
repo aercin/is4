@@ -1,9 +1,9 @@
-﻿using application.Common;
+﻿using core_application.Common;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace application.Features.Behaviours
+namespace core_application.Features.CrossCuttings
 {
     public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : class, IRequest<TResponse>
                                                                                                    where TResponse : Result
@@ -17,6 +17,11 @@ namespace application.Features.Behaviours
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
+            if (CrossCuttingHelper.ShouldSkip<TRequest>())
+            {
+                return await next();
+            }
+
             var validator = this._serviceProvider.GetService<IValidator<TRequest>>();
             if (validator != null)
             {

@@ -1,5 +1,4 @@
-﻿using application.Abstractions;
-using core_infrastructure;
+﻿using core_infrastructure;
 using domain.Abstractions;
 using IdentityServer4.AccessTokenValidation;
 using IdentityServer4.EntityFramework.DbContexts;
@@ -55,12 +54,10 @@ namespace infrastructure
                         options.SupportedTokens = SupportedTokens.Jwt;
                     });
 
-            services.AddScoped<IClientRepository, ClientRepository>();
-            services.AddHttpContextAccessor();
+            services.AddScoped<IClientRepository, ClientRepository>(); 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IPermissionRepository, PermissionRepository>();
-            services.AddScoped<ICorrelationService, CorrelationService>();
+            services.AddScoped<IPermissionRepository, PermissionRepository>(); 
             services.AddScoped<IPersistentGrantRepository, PersistedGrantRepository>();
 
             services.AddCoreInfrastructure<MembershipDbContext>(options =>

@@ -1,8 +1,8 @@
-﻿using application.Common;
+﻿using core_application.Abstractions;
+using core_application.Common;
 using domain.Abstractions;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 
 namespace application.Features.Commands
 {
@@ -21,12 +21,12 @@ namespace application.Features.Commands
         {
             private readonly IUnitOfWork _uow;
             private readonly IClientRepository _clientRepository;
-            private readonly IHttpContextAccessor _httpContextAccessor;
-            public CommandHandler(IUnitOfWork uow, IClientRepository clientRepository, IHttpContextAccessor httpContextAccessor)
+            private readonly IHttpContextService _httpContextService;
+            public CommandHandler(IUnitOfWork uow, IClientRepository clientRepository, IHttpContextService httpContextService)
             {
                 this._uow = uow;
                 this._clientRepository = clientRepository;
-                this._httpContextAccessor = httpContextAccessor;
+                this._httpContextService = httpContextService;
             }
 
             public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
@@ -36,7 +36,7 @@ namespace application.Features.Commands
                 //Senaryo gereği; bu aşamada access token payload da yer alan client_id bilgisiyle ilişkili change password adresine data storedan erişip
                 //kullanıcının userid'sini query item olarak bu url'e ekleyerek, kullanıcının mail adresine mail gönderilmesi gerekir. 
                 //Poc olduğu için sadece client redirect url bilgisini data storedan alip sanki mail gonderilmis gibi farzedilecektir.
-                var clientId = this._httpContextAccessor.HttpContext.User.Claims.Single(x => x.Type == "client_id").Value;
+                var clientId = this._httpContextService.GetClaimValue("client_id");
                 var clientRedirectUrl = this._clientRepository.GetClientRedirectUrl(clientId, "password");
 
                 return Result.Success();

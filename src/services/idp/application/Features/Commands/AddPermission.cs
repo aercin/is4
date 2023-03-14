@@ -1,5 +1,4 @@
-﻿using application.Common;
-using AutoMapper;
+﻿using core_application.Common;
 using domain.Abstractions;
 using domain.Entities;
 using FluentValidation;

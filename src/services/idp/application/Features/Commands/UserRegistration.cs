@@ -1,4 +1,4 @@
-﻿using application.Common;
+﻿using core_application.Common;
 using domain.Abstractions;
 using FluentValidation;
 using MediatR;

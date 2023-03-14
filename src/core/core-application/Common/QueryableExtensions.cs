@@ -3,7 +3,7 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace application.Common
+namespace core_application.Common
 {
     public static class QueryableExtensions
     {

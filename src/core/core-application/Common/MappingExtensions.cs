@@ -1,4 +1,4 @@
-﻿namespace application.Common
+﻿namespace core_application.Common
 {
     public static class MappingExtensions
     {

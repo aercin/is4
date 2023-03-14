@@ -1,23 +1,25 @@
 ﻿using domain.Abstractions;
-using IdentityServer4.Stores;
+using IdentityServer4.EntityFramework.Interfaces;
 
 namespace infrastructure.Persistence
 {
     public class PersistedGrantRepository : IPersistentGrantRepository
     {
-        private readonly IPersistedGrantStore _persistedGrantStore;
-        public PersistedGrantRepository(IPersistedGrantStore persistedGrantStore)
+        private readonly IPersistedGrantDbContext _persistentGrantDbContext; 
+
+        public PersistedGrantRepository(IPersistedGrantDbContext persistentGrantDbContext)
         {
-            this._persistedGrantStore = persistedGrantStore;
+            this._persistentGrantDbContext = persistentGrantDbContext; 
         }
 
         public async Task RemovePersistedGrant(string clientId, int userId)
-        {
-            var persistentGrants = await this._persistedGrantStore.GetAllAsync(new PersistedGrantFilter { ClientId = clientId, SubjectId = userId.ToString() });
-
-            if (persistentGrants.Any())
+        { 
+            var persistedGrant = this._persistentGrantDbContext.PersistedGrants.SingleOrDefault(x => x.ClientId == clientId
+                                                                                                  && x.SubjectId == userId.ToString());
+            if (persistedGrant != null)
             {
-                await this._persistedGrantStore.RemoveAsync(persistentGrants.Single().Key);
+                this._persistentGrantDbContext.PersistedGrants.Remove(persistedGrant);
+                await this._persistentGrantDbContext.SaveChangesAsync();
             }
         }
     }

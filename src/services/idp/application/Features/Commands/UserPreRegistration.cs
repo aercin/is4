@@ -1,9 +1,9 @@
-﻿using application.Common;
+﻿using core_application.Abstractions;
+using core_application.Common;
 using domain.Abstractions;
 using domain.Entities;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 
 namespace application.Features.Commands
 {
@@ -22,17 +22,17 @@ namespace application.Features.Commands
         {
             private readonly IUnitOfWork _uow;
             private readonly IClientRepository _clientRepository;
-            private readonly IHttpContextAccessor _httpContextAccessor;
-            public CommandHandler(IUnitOfWork uow, IClientRepository clientRepository, IHttpContextAccessor httpContextAccessor)
+            private readonly IHttpContextService _httpContextService;
+            public CommandHandler(IUnitOfWork uow, IClientRepository clientRepository, IHttpContextService httpContextService)
             {
-                this._uow = uow;
+                this._uow = uow; 
+                this._httpContextService = httpContextService;
                 this._clientRepository = clientRepository;
-                this._httpContextAccessor = httpContextAccessor;
             }
 
             public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
             {
-                var clientId = this._httpContextAccessor.HttpContext.User.Claims.Single(x => x.Type == "client_id").Value;
+                var clientId = this._httpContextService.GetClaimValue("client_id");
 
                 var newUser = User.AddUser(request.Email, clientId);
 

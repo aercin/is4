@@ -1,5 +1,7 @@
-﻿using core_domain.Abstractions;
+﻿using core_application.Abstractions;
+using core_domain.Abstractions;
 using core_infrastructure.persistence;
+using core_infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -18,7 +20,10 @@ namespace core_infrastructure
 
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             services.AddDbContext<T>(options => options.UseNpgsql(dependencyOptions.Value.ConnectionString));
-             
+
+            services.AddScoped<IHttpContextService, HttpContextService>();
+            services.AddHttpContextAccessor();
+
             return services;
         }
 

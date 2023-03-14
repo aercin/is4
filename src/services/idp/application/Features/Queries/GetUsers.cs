@@ -1,5 +1,5 @@
-﻿using application.Common;
-using AutoMapper;
+﻿using AutoMapper;
+using core_application.Common;
 using domain.Abstractions;
 using domain.Entities;
 using MediatR;
@@ -9,11 +9,9 @@ namespace application.Features.Queries
     public static class GetUsers
     {
         #region Query
-        public class Query : IRequest<Result>
+        public class Query : QueryPaginationBase<Result>
         {
-            public string UserName { get; set; }
-            public int PageNumber { get; set; } = 1;
-            public int PageSize { get; set; } = 10;
+            public string UserName { get; set; } 
         }
         #endregion
 
