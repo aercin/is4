@@ -1,0 +1,25 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)" >
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <label for="username" class="form-label">
+                    Kullanıcı Adı *
+                </label>
+                <input  class="form-control" id="username" type="text" formControlName="userName">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <label for="password" class="form-label">
+                    Şifre *
+                </label>
+                <input  class="form-control" id="password" type="text" formControlName="password">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <button class="btn btn-primary"  type="submit"  [disabled]="!loginForm.valid || disableLogin">Sisteme Giriş</button>
+            </div> 
+        </div> 
+    </div>   
+</form> 
