@@ -130,6 +130,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\ProtectedResourceController.cs" />
+    <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

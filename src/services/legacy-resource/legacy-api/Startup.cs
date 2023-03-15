@@ -2,6 +2,7 @@
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Jwt;
+using Newtonsoft.Json.Serialization;
 using Owin;
 using System;
 using System.Security.Cryptography;
@@ -15,6 +16,7 @@ namespace legacy_api
         public void Configuration(IAppBuilder appBuilder)
         {
             HttpConfiguration config = new HttpConfiguration();
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             WebApiConfig.Register(config); // bootstrap your existing WebApi config 
 
             appBuilder.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);

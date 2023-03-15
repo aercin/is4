@@ -1,4 +1,6 @@
 using api.Policies;
+using application;
+using core_infrastructure;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Authorization;
 
@@ -10,6 +12,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddApplication();
+builder.Services.AddCoreInfrastructure();
 builder.Services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(options =>
                 {
@@ -33,7 +37,13 @@ builder.Services.AddSingleton<IAuthorizationHandler, WeatherForecastForInstantPo
 builder.Services.AddSingleton<IAuthorizationHandler, WeatherForecastFor5DaysPolicyHandler>();
 builder.Services.AddSingleton<IAuthorizationHandler, WeatherForecastFor10DaysPolicyHandler>();
 
+builder.Services.AddCors(options =>
+     options.AddDefaultPolicy(builder =>
+     builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
+
 var app = builder.Build();
+
+app.UseCors();
 
 app.UseSwagger();
 app.UseSwaggerUI();

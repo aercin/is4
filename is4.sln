@@ -40,6 +40,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "legacy-resource", "legacy-r
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "legacy-api", "src\services\legacy-resource\legacy-api\legacy-api.csproj", "{EA4AF00A-9753-4941-9A21-AAA546846ED8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "application", "src\services\resource\application\application.csproj", "{A5584B17-CF75-40E1-8FA6-929AAF58D94D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,10 @@ Global
 		{EA4AF00A-9753-4941-9A21-AAA546846ED8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA4AF00A-9753-4941-9A21-AAA546846ED8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA4AF00A-9753-4941-9A21-AAA546846ED8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5584B17-CF75-40E1-8FA6-929AAF58D94D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5584B17-CF75-40E1-8FA6-929AAF58D94D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5584B17-CF75-40E1-8FA6-929AAF58D94D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5584B17-CF75-40E1-8FA6-929AAF58D94D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,6 +111,7 @@ Global
 		{A2C79088-DEBD-4807-99B1-5B7F54D7FC22} = {AFE65155-BC3F-47A1-97BF-E48F90D5CA70}
 		{289279B4-C1AC-4153-81D6-27DF4DE74523} = {7E542D4A-289F-4646-A9BA-623FCE76D310}
 		{EA4AF00A-9753-4941-9A21-AAA546846ED8} = {289279B4-C1AC-4153-81D6-27DF4DE74523}
+		{A5584B17-CF75-40E1-8FA6-929AAF58D94D} = {AFE65155-BC3F-47A1-97BF-E48F90D5CA70}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C098C977-311C-44A8-B21A-2819941C0C9F}

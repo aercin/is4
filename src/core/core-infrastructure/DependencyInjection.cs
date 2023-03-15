@@ -21,6 +21,13 @@ namespace core_infrastructure
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             services.AddDbContext<T>(options => options.UseNpgsql(dependencyOptions.Value.ConnectionString));
 
+            services.AddCoreInfrastructure();
+
+            return services;
+        }
+
+        public static IServiceCollection AddCoreInfrastructure(this IServiceCollection services)
+        {
             services.AddScoped<IHttpContextService, HttpContextService>();
             services.AddHttpContextAccessor();
 
