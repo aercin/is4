@@ -1,4 +1,5 @@
-﻿using domain.Abstractions;
+﻿using core_application.Abstractions;
+using domain.Abstractions;
 using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Validation;
@@ -9,14 +10,16 @@ namespace infrastructure.Services
     internal class UserValidator : IResourceOwnerPasswordValidator
     {
         private readonly IUnitOfWork _uow;
-        public UserValidator(IUnitOfWork uow)
+        private readonly ISecurityService _securityService;
+        public UserValidator(IUnitOfWork uow, ISecurityService securityService)
         {
             this._uow = uow;
+            this._securityService = securityService;
         }
 
         public async Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
         {
-            var existedUser = this._uow.UserRepo.GetWithPermissions(context.UserName, context.Password);
+            var existedUser = this._uow.UserRepo.GetWithPermissions(context.UserName, this._securityService.HashPassword(context.Password));
 
             if (existedUser != null)//valid state
             {
@@ -25,7 +28,7 @@ namespace infrastructure.Services
                 {
                     permissionClaims.Add(new Claim(JwtClaimTypes.Role, userPermission.Permission.Scope));
                 });
-               
+
                 context.Result = new GrantValidationResult(
                     subject: existedUser.Id.ToString(),
                     authenticationMethod: "custom",

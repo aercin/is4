@@ -1,4 +1,5 @@
-﻿using core_application.Common;
+﻿using core_application.Abstractions;
+using core_application.Common;
 using domain.Abstractions;
 using FluentValidation;
 using MediatR;
@@ -20,16 +21,18 @@ namespace application.Features.Commands
         public class CommandHandler : IRequestHandler<Command, Result>
         {
             private readonly IUnitOfWork _uow;
-            public CommandHandler(IUnitOfWork uow)
+            private readonly ISecurityService _securityService;
+            public CommandHandler(IUnitOfWork uow, ISecurityService securityService)
             {
-                this._uow = uow; 
+                this._uow = uow;
+                this._securityService = securityService;
             }
 
             public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
             {
                 var existedUser = this._uow.UserRepo.GetById(request.UserId);
 
-                existedUser.ChangePassword(request.NewPassword);
+                existedUser.ChangePassword(this._securityService.HashPassword(request.NewPassword));
 
                 return Result.Success();
             }

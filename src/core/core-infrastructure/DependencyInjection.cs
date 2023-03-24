@@ -29,6 +29,7 @@ namespace core_infrastructure
         public static IServiceCollection AddCoreInfrastructure(this IServiceCollection services)
         {
             services.AddScoped<IHttpContextService, HttpContextService>();
+            services.AddSingleton<ISecurityService, SecurityService>();
             services.AddHttpContextAccessor();
 
             return services;
